@@ -1,0 +1,229 @@
+
+html{
+  scroll-behavior: smooth;
+}
+  body{
+  background-image: url(../img/common/bg1.png);
+  min-height: 100vh;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.f-robot{
+  font-family: 'Roboto', sans-serif;
+}
+
+.fw-300{
+  font-weight: 300 !important;
+}
+
+.fw-400{
+  font-weight: 400 !important;
+}
+
+.fw-500{
+  font-weight: 500 !important;
+}
+
+.fw-700{
+  font-weight: 700 !important;
+}
+
+.sidebar{
+  min-height: 100vh;
+}
+
+.school-account{
+  margin: 10px;
+  background-color: #326ec7;
+  padding: 5px 15px 10px 15px;
+  border-radius: 5px;
+  color: white;
+}
+
+.school-account p{
+  font-weight: 500;
+  font-size: 17px;
+  margin: 0;
+  line-height: 1;
+}
+
+.school-account span{
+  font-size: 8px;
+}
+
+.sidebar a:hover{
+  text-decoration: none;
+  opacity: 0.7;
+}
+.signup-bar {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    counter-reset: step;
+    position: relative;
+    z-index: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.signup-bar li {
+    list-style-type: none;
+    width: 10%;
+    float: left;
+    font-size: 13px;
+    position: relative;
+    text-align: center;
+}
+
+.signup-current:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+}
+
+.signup-disabled:before, .signup-visited:before {
+    width: 30px;
+    height: 30px;
+    content: counter(step);
+    counter-increment: step;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    margin: 0 auto 6px;
+    border-radius: 50%;
+    font-size: 16px;
+    background-color: #eaeaea;
+    color: #888;
+}
+
+.signup-current:before{
+    color: #fff;
+    background-color: #0087e8;
+    counter-increment: step;
+    line-height: 30px;
+    display: block;
+    text-align: center;
+    margin: 0 auto 6px;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.signup-current span {
+    color: #0087e8;
+    font-weight: 700;
+}
+
+.signup-disabled span, .signup-visited span {
+    color: #888;
+}
+
+.signup-disabled:after {
+    width: 100%;
+    height: 6px;
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: -50%;
+    z-index: -1;
+    background-color: #eaeaea;
+}
+
+.signup-visited:after {
+    width: 100%;
+    height: 6px;
+    content: '';
+    position: absolute;
+    top: 12px;
+    right: -50%;
+    z-index: -1;
+    background-color: #eaeaea;
+}
+.sidebar_inner{
+  border: none;
+  height: 100vh;
+  margin: 20px 20px;
+}
+
+.help{
+  bottom: 20px;
+  position: fixed;
+}
+/*--------------------------------------------
+
+  Department
+
+--------------------------------------------*/
+
+/*-- dropdown --*/
+.dropdown-menu{
+  width: 250px;
+}
+
+/*-- quill editor --*/
+.department-editor{
+  height: 250px;
+  margin-bottom: 100px;
+}
+
+/*-- navr --*/
+.department-nav ul li a {
+  letter-spacing: 1px;
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 21px;
+  margin-bottom: 2px;
+  color: #313131;
+}
+
+.department-nav ul li span {
+  font-size: 12px;
+  color: #6f6f6f;
+}
+
+.department-nav ul li .department-status {
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  padding-right: 14px;
+  margin-bottom: 5px;
+}
+
+.department-date i.material-icons {
+  float: left;
+  font-size: 20px;
+  line-height: 20px;
+  color: gray;
+  margin-right: 2px;
+}
+
+.department-nav ul li .department-status i.material-icons {
+    margin-right: 5px;
+    color: gray;
+}
+
+.department-nav ul li .department-date p{
+  font-size: 12px;
+  float: left;
+  font-weight: 400;
+  margin-bottom: 15px;
+}
+
+.department-nav ul li .department-date p:last-child {
+  margin-left: 15px;
+}
+
+.ready-btn{
+  font-size: 12px;
+  height: 37px;
+}
+.open-btn{
+  width: 164px;
+}
