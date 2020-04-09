@@ -171,6 +171,62 @@ html{
   margin-bottom: 100px;
 }
 
+/*-- cover --*/
+.show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  display: none;
+  height: 100vh;
+  width: 100%;
+  margin: 0 a;
+  background: white;
+  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.wrapper{
+
+}
+
+.cropper-modal{
+  background-color: black !important;
+  opacity: 1 !important;
+}
+
+.cropper-bar{
+  background-color: #333333;
+  padding: 20px;;
+}
+
+.cropper-image-inner{
+  width: 1050px;
+  margin: 0 auto;
+}
+
+.cropper-container{
+  min-height: 500px;
+  max-height: 500px;
+}
+
+/* .cropper-crop-box {
+  width: 1000px !important;
+  height: 400px !important;
+} */
+
+.img-pre-wrap{
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background-color: gray;
+}
+
 /*-- navr --*/
 .department-nav ul li a {
   letter-spacing: 1px;

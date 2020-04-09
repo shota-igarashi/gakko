@@ -10,6 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+mix.copy('node_modules/cropper/dist/cropper.min.css', 'public/css/cropper.min.css').version();
+mix.copy('node_modules/cropper/dist/cropper.min.js', 'public/js/cropper.min.js').version();
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');

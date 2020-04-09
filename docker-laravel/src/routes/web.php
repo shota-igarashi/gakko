@@ -61,9 +61,10 @@ Route::group(['middleware' => 'auth:admin'], function() {
     Route::post('/register', 'Admin\Auth\RegisterController@create')->name('admin.register');
     Route::get('/gakko/create', 'GakkoController@create')->name('gakko.create');
     Route::post('/gakko/create', 'GakkoController@store');
+    Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\UploadController@upload');
     // Route::resource('/gakko', 'GakkoController', ['only' => ['index', 'create', 'store']]);
 });
-
 Route::get('/post',function(){
     return view('post');
 });

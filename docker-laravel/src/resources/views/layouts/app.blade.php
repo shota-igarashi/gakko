@@ -19,13 +19,19 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link href="{{ mix('css/cropper.min.css') }}" rel="stylesheet">
 
   <!-- Scripts -->
   <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
   <script src="{{ asset('js/app.js') }}"></script>
   <script src="{{ asset('js/admin.js') }}"></script>
+  <script src="{{ mix('js/cropper.min.js') }}"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+  
   <!-- <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script> -->
   <!-- <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script> -->
+
 
 </head>
 <body class="bg-white vh-100 min-vh-100 mh-100">

@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootbox": "^5.4.0",
+        "cropper": "^4.1.0",
         "node-sass": "^4.13.1"
     }
 }

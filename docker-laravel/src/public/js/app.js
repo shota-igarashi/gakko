@@ -49491,21 +49491,6 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/admin.js":
-/*!*******************************!*\
-  !*** ./resources/js/admin.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  $('#all').on("click", function () {
-    $('.list').prop("checked", $(this).prop("checked"));
-  });
-});
-
-/***/ }),
-
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49520,7 +49505,7 @@ $(function () {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./admin */ "./resources/js/admin.js");
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './admin'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**

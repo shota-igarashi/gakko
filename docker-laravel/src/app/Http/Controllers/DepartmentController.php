@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Validator;// Validator
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Facades\Admin;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class DepartmentController extends Controller
@@ -53,8 +55,18 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         if($request->hasFile('department_cover')){
-          if ($request->file('department_cover')->isValid()) {
-              $path = $request->file('department_cover')->store('public/img');
+					if ($request->file('department_cover')->isValid()) {
+						// $fileName = $request->file->getClientOriginalName();
+						// $exists = Storage::disk($this->filesystem)->exists($request->upload_path.'/'.$fileName);
+ 
+            // if ($exists) {
+            //     Storage::disk($this->filesystem)->delete($request->upload_path.'/'.$fileName);
+						// }
+						
+						// //   Storage::delete($request->depatment_cover);
+						// 	// $files = $department->department_cover;
+            //   Storage::delete('public/img/'.'department_cover');
+              $path = $request->file('department_cover')->store('public/img/');
               $request->department_cover = basename($path);
               // Department::create(['department_cover' => basename($path)]);
               \Log::info($path);

@@ -26,41 +26,43 @@
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table table-bordered mb-0">
-                    <thead>
-                        <tr class="bg-light border-bottom-1 text-secondary" style="font-size:12px;">
-                          <th class="border-top-0 border-left-0 border-right-0 pr-0"><input id="all" type="checkbox" style="transform:scale(1.3);"></th>
-                          <th class="border-top-0 border-left-0 fw-400" style="width:35%">タイトル</th>
-                          <th class="border-top-0 border-left-0 fw-400">学部</th>
-                          <th class="border-top-0 border-left-0 fw-400">学科</th>
-                          <th class="border-top-0 border-left-0 fw-400">ステータス</th>
-                          <th class="border-top-0 border-left-0 fw-400" style="width:5%">PV数</th>
-                          <th class="border-top-0 border-left-0 border-right-0 fw-400">ブックマークされた数</th>
-                        </tr>
-                    </thead>
+                  <thead>
+                    <tr class="bg-light border-bottom-1 text-secondary" style="font-size:12px;">
+                      <th class="border-top-0 border-left-0 border-right-0 pr-0"><input id="all" type="checkbox" style="transform:scale(1.3);"></th>
+                      <th class="border-top-0 border-left-0 fw-400" style="width:35%">タイトル</th>
+                      <th class="border-top-0 border-left-0 fw-400">学部</th>
+                      <th class="border-top-0 border-left-0 fw-400">学科</th>
+                      <th class="border-top-0 border-left-0 fw-400">ステータス</th>
+                      <th class="border-top-0 border-left-0 fw-400" style="width:5%">PV数</th>
+                      <th class="border-top-0 border-left-0 border-right-0 fw-400">ブックマークされた数</th>
+                    </tr>
+                  </thead>
                     <tbody>
                       @foreach ($departments as $department)
                       <tr>
                         <td class="border-left-0 border-right-0 pr-0">
                           <input class="list" type="checkbox" name="ids[]" value="{{ $department->id }}" form="bulk-delete" style="transform:scale(1.3);">
                         </td>
-                        <td class="border-left-0">
+                        <td class="border-left-0 d-flex border-top-0 border-right-0">
                           @isset ($department->department_cover)
-                          <div>
-                            <img src="{{ asset('/storage/img/'.$department->department_cover) }}">
+                          <div class="mr-2" style="overflow:hidden; width:100px; height:55px;">
+                            <img src="{{ asset('/storage/img/'.$department->department_cover) }}" width="100%">
                           </div>
                           @endisset
-                          <p class="mb-2 fw-600">
-                          {{ $department->department_title }}
-                          </p>
-                         <div class="h6 fw-400 d-flex align-items-center mb-0" style="font-size:13px;">
-                           <a href="">募集を表示</a><span class="d-inline-block px-2 text-muted small">|</span>
-                           <a href="{{ route('department.edit',$department->id)}}">募集を編集</a><span class="d-inline-block px-2 text-muted small">|</span>
-                           <form action="{{ route('department.destroy', $department->id)}}" method="POST">
-                               @csrf
-                               @method('DELETE')
-                               <input class="d-inline btn-sm bg-light py-0" style="font-size:11px;" type="submit" name="" value="削除">
-                           </form>
-                         </div>
+                          <div class="">
+                            <p class="mb-2 fw-600">
+                            {{ $department->department_title }}
+                            </p>
+                            <div class="h6 fw-400 d-flex align-items-center mb-0" style="font-size:13px;">
+                              <a href="">募集を表示</a><span class="d-inline-block px-2 text-muted small">|</span>
+                              <a href="{{ route('department.edit',$department->id)}}">募集を編集</a><span class="d-inline-block px-2 text-muted small">|</span>
+                              <form action="{{ route('department.destroy', $department->id)}}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <input class="d-inline btn-sm bg-light py-0" style="font-size:11px;" type="submit" name="" value="削除">
+                              </form>
+                            </div>
+                          </div>
                         </td>
                        <td>
                          <p style="font-size:12px;">{{ $department->department_gakubu}}</p>

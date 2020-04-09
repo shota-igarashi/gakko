@@ -66,11 +66,40 @@
         <div class="input-group">
           @isset ($department->department_cover)
           <div>
-            <img src="{{ asset('/storage/img/'.$department->department_cover) }}">
+            <img src="{{ asset('/storage/img/'.$department->department_cover) }}" width="100%">
           </div>
           @endisset
           <input type="file" name="department_cover" class="uploadFile">
         </div>
+        
+        <!-- cropper -->
+        <div id="img-cropper-image" class="popup" data-name="image">
+          <div class="close-area">
+            <p class="fa fa-times">☓</p>
+          </div>
+          <div class="cropper-image-inner">
+            <div class="wrapper"></div>
+            <div class="cropper-bar">
+              <div class="btn btn-primary">画像を加工する</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cropper-file" data-name="image">
+          <input type="file" id="datafile">
+          <label for="datafile">画像を選ぶ</label>
+          <!-- プレビューが表示される枠 -->
+          <div class="img-pre-wrap">
+            <div class="img-preview">
+              <img id="image" src="picture.jpg" style="display: block; max-width: 100%;">
+            </div>
+          </div>
+          <input type="hidden" name="image_cropp_width">
+          <input type="hidden" name="image_cropp_height">
+          <input type="hidden" name="image_cropp_x">
+          <input type="hidden" name="image_cropp_y">
+        </div>
+        <!-- //cropper -->
 
         <div class="my-5 border"></div>
 
@@ -96,6 +125,28 @@
           <p class="f-robot text-black-50 mr-3 mb-0" style="line-height: 50px;"><span class="h1 pr-1">3</span><span class="h5 pr-1">/</span><span class="h4">5</span></p>
           <p class="h2 fw-700 text-dark" style="letter-spacing:1px;">自由に募集の紹介を書いてみましょう</p>
         </div>
+
+        <div class="input-group">
+          <span class="input-group-btn">
+          <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+              <i class="fa fa-picture-o"></i> 画像選択
+          </a>
+          </span>
+          <input id="thumbnail" class="form-control" type="text" name="filepath">
+        </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+        
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+        <script>
+        (function($) {
+            $(function () {
+                var route_prefix = "laravel-filemanager";
+                $('#lfm').filemanager('image', {prefix: route_prefix});
+            });
+        })(jQuery);
+        </script>
+        
         <div class="ql-wrap department-editor">
           <div id="toolbar" class="d-flex align-items-center rounded-top">
             <div id="toolbar-container">
@@ -210,7 +261,6 @@
 Quill.prototype.getHtml = function() {
     return this.container.querySelector('.ql-editor').innerHTML
 }
-
 $(document).ready(() => {
         $('.js-quill-editor').each((index, e) => {
             const $target  = $($(e).data('target'))
@@ -218,14 +268,105 @@ $(document).ready(() => {
                 modules: { toolbar: '#toolbar' },
                 theme: 'snow'
             });
-            editor.on('text-change', (delta) => {
-                if (delta) {
-                    // Quillエディタ内のHTMLをformに設定する
-                    const html = editor.getHtml();
-                    $target.val(html)
-                }
+                editor.on('text-change', (delta) => {
+                  if (delta) {
+                      // Quillエディタ内のHTMLをformに設定する
+                      const html = editor.getHtml();
+                      $target.val(html)
+                  }
             })
         })
+        
 });
+</script>
+
+<script>
+  $(function (){
+    $('.cropper-file').change(function(){
+      $('#img-cropper-image').addClass('show').fadeIn();
+      $(this).val('');
+  });
+});
+</script>
+
+<script>
+  $(function () {
+    // 「画像を加工する」もしくはモーダルを閉じたことで発火
+    // CropperのデータをHTMLに挿入する
+    $('[id="img-cropper-image"]').on('click', '.btn,.fa-times', function () {
+      $('.popup').fadeOut();
+      var imgCropper = $(this).parents('[id="img-cropper-image"]');
+      var imageName = imgCropper.data('name');
+      var data = imgCropper.find('.wrapper > img').cropper('getData');
+
+      $('input[name="'+ imageName +'_cropp_width"]').val(Math.round(data.width));
+      $('input[name="'+ imageName +'_cropp_height"]').val(Math.round(data.height));
+      $('input[name="'+ imageName +'_cropp_x"]').val(Math.round(data.x));
+      $('input[name="'+ imageName +'_cropp_y"]').val(Math.round(data.y));
+      imgCropper.css({'width':'0','height':'0','position':'static'});
+    });
+
+    // ファイルがアップロードされたことで発火
+    // Cropperを起動する
+    $('[id^="datafile"]').on('change', function (e) {
+      var file = e.target.files[0],
+      reader = new FileReader(),
+      previewDiv = $(this).parents('.cropper-file').find(".img-preview"),
+      croppDiv = $('#img-cropper-' + $(this).parents('.cropper-file').data('name'));
+
+      // 画像ファイル以外の場合は何もしない
+      if(file.type.indexOf("image") < 0){
+        return false;
+      }
+      // check over 2MB
+      if (file.size > 2097152) {
+        alert('お手数ですが、画像のサイズは2MB以下のものをご用意ください。');
+        return;
+      }
+
+      img = new Image();
+      img.onload = function () {
+        // ファイル読み込みが完了した際のイベント登録
+        reader.onload = (function(file) {
+          return function(e) {
+            //既存のプレビューを削除
+            previewDiv.empty();
+            // .prevewの領域の中にロードした画像を表示するimageタグを追加
+            previewDiv.append($('<img>').attr({
+              src: e.target.result,
+              title: file.name
+            })).show();
+
+            croppDiv.css({}).show();
+
+            //既存のcropper用画像を削除
+            croppDiv.find('.wrapper').empty();
+            // #img-cropperの領域の中にロードした画像を表示するimageタグを追加
+            var appendImage = $('<img id="clopImg">').attr({
+              src: e.target.result,
+              title: file.name
+            });
+            croppDiv.find('.wrapper').append(appendImage);
+            appendImage.ready(function () {
+              var image = croppDiv.find('img');
+              image.cropper({
+                preview: '.img-preview',
+                aspectRatio: 3 / 2,
+                movable: false,
+                cropBoxResizable:false,
+                // built:function(){
+                //   $("#clopImg").cropper(
+                //       "setCropBoxData",{left:192,top:77.5,width:116,height:145}
+                //   );
+                // }
+              });
+            });
+          };
+        })(file);
+        reader.readAsDataURL(file);
+      };
+      img.src = (window.URL || window.webkitURL).createObjectURL(file);
+    });
+  });
 </script>
 @endsection
