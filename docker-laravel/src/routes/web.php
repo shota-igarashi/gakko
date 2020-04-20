@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'],function(){
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'admin/auth'],function(){
-    Route::post('login', 'Admin\Auth\LoginController@login')->name('admin.login');
+    Route::post('/login', 'Admin\Auth\LoginController@login')->name('admin.login');
     Route::get('/login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('/register', 'Admin\Auth\RegisterController@create')->name('admin.register');
     Route::get('/register', 'Admin\Auth\RegisterController@showRegisterForm')->name('admin.register');
@@ -60,9 +60,9 @@ Route::group(['middleware' => 'auth:admin'], function() {
     Route::put('/gakko/edit', 'GakkoController@update');
     Route::post('/register', 'Admin\Auth\RegisterController@create')->name('admin.register');
     Route::get('/gakko/create', 'GakkoController@create')->name('gakko.create');
-    Route::post('/gakko/create', 'GakkoController@store');
-    Route::get('/laravel-filemanager', '\Unisharp\Laravelfilemanager\controllers\LfmController@show');
-    Route::post('/laravel-filemanager/upload', '\Unisharp\Laravelfilemanager\controllers\UploadController@upload');
+    Route::post('/gakko/create', 'GakkoController@store')->name('gakko.store');
+    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\controllers\UploadController@upload');
     // Route::resource('/gakko', 'GakkoController', ['only' => ['index', 'create', 'store']]);
 });
 Route::get('/post',function(){

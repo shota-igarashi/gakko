@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Admin;
+use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
 
+    // 作成に成功したら下記にリダイレクト
     protected $redirectTo = '/gakko/create';
 
     // ログイン状態を判断 -> 認証不要
@@ -20,6 +25,7 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
     // ログインフォーム表示
     public function showRegisterForm()
     {
@@ -43,9 +49,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
-
+    
     protected function guard()
     {
-        return \Auth::guard('admin'); //管理者認証のguardを指定
+        return Auth::guard('admin'); //管理者認証のguardを指定
     }
 }

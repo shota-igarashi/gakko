@@ -125,68 +125,36 @@
           <p class="f-robot text-black-50 mr-3 mb-0" style="line-height: 50px;"><span class="h1 pr-1">3</span><span class="h5 pr-1">/</span><span class="h4">5</span></p>
           <p class="h2 fw-700 text-dark" style="letter-spacing:1px;">自由に募集の紹介を書いてみましょう</p>
         </div>
-
-        <div class="input-group">
-          <span class="input-group-btn">
-          <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-              <i class="fa fa-picture-o"></i> 画像選択
-          </a>
-          </span>
-          <input id="thumbnail" class="form-control" type="text" name="filepath">
-        </div>
-        <img id="holder" style="margin-top:15px;max-height:100px;">
         
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
         <script>
         (function($) {
             $(function () {
-                var route_prefix = "laravel-filemanager";
+                var route_prefix = "{{ url(config('lfm.prefix')) }}";
                 $('#lfm').filemanager('image', {prefix: route_prefix});
             });
         })(jQuery);
         </script>
+
+        <textarea id="my-editor" name="department_text" class="form-control" value="{{ $department->department_text }}">{!! $department->department_text !!}</textarea>
+        <script>
+        (function($) {
+            $(function () {
+                var options = {
+                    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+                    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+                };
+                CKEDITOR.replace('my-editor', options);
+                $('textarea.my-editor').ckeditor(options);
+            });
+        })(jQuery);
+        </script>
         
-        <div class="ql-wrap department-editor">
-          <div id="toolbar" class="d-flex align-items-center rounded-top">
-            <div id="toolbar-container">
-              <span class="ql-formats">
-                <select class="ql-header">
-                  <option value="">本文</option>
-                  <option value="1">見出し 1</option>
-                  <option value="2">見出し 2</option>
-                  <option value="3">見出し 3</option>
-                  <option value="4">見出し 4</option>
-                  <option value="5">見出し 5</option>
-                  <option value="6">見出し 6</option>
-                </select>
-              </span>
-              <span class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-strike"></button>
-              </span>
-              <span class="ql-formats">
-                <select class="ql-color"></select>
-                <select class="ql-background"></select>
-              </span>
-              <span class="ql-formats">
-                <button class="ql-list" value="ordered"></button>
-                <button class="ql-list" value="bullet"></button>
-                <button class="ql-indent" value="-1"></button>
-                <button class="ql-indent" value="+1"></button>
-              </span>
-              <span class="ql-formats">
-                <button class="ql-link"></button>
-                <button class="ql-image"></button>
-                <button class="ql-video"></button>
-              </span>
-            </div>
-          </div>
-          <div id="editor" data-target="#content" class="js-quill-editor department-editor bg-light bborder-top-0 rounded-bottom">{!! $department->department_text !!}</div>
-          <input id="content" type="hidden" class="" name="department_text" value="{{ $department->department_text }}">
-        </div><!-- //.ql-wrap -->
+        <!-- <div id="editor" data-target="#content" class="js-quill-editor department-editor bg-light bborder-top-0 rounded-bottom">{!! $department->department_text !!}</div>
+          <input id="content" type="hidden" class="" name="department_text" value="{{ $department->department_text }}"> -->
 
         <div class="my-5 border"></div>
 
@@ -256,38 +224,16 @@
   </section>
 
 </div><!-- .content -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-Quill.prototype.getHtml = function() {
-    return this.container.querySelector('.ql-editor').innerHTML
-}
-$(document).ready(() => {
-        $('.js-quill-editor').each((index, e) => {
-            const $target  = $($(e).data('target'))
-            const editor = new Quill(e, {
-                modules: { toolbar: '#toolbar' },
-                theme: 'snow'
-            });
-                editor.on('text-change', (delta) => {
-                  if (delta) {
-                      // Quillエディタ内のHTMLをformに設定する
-                      const html = editor.getHtml();
-                      $target.val(html)
-                  }
-            })
-        })
-        
-});
-</script>
 
-<script>
+
+<!-- <script>
   $(function (){
     $('.cropper-file').change(function(){
       $('#img-cropper-image').addClass('show').fadeIn();
       $(this).val('');
   });
 });
-</script>
+</script> -->
 
 <script>
   $(function () {
@@ -354,11 +300,11 @@ $(document).ready(() => {
                 aspectRatio: 3 / 2,
                 movable: false,
                 cropBoxResizable:false,
-                // built:function(){
-                //   $("#clopImg").cropper(
-                //       "setCropBoxData",{left:192,top:77.5,width:116,height:145}
-                //   );
-                // }
+                built:function(){
+                  $("#clopImg").cropper(
+                      "setData",{left:192,top:77.5,width:116,height:145}
+                  );
+                }
               });
             });
           };
@@ -369,4 +315,5 @@ $(document).ready(() => {
     });
   });
 </script>
+
 @endsection

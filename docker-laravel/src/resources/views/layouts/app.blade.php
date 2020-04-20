@@ -28,8 +28,11 @@
   <script src="{{ mix('js/cropper.min.js') }}"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
-  
-  <!-- <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script> -->
+  <!-- <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/translations/ja.js"></script>
+  <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script> -->
+
+  <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
   <!-- <script src="https://cdn.ckeditor.com/ckeditor5/17.0.0/classic/ckeditor.js"></script> -->
 
 
