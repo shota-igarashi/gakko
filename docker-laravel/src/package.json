@@ -26,6 +26,6 @@
     "dependencies": {
         "bootbox": "^5.4.0",
         "cropper": "^4.1.0",
-        "node-sass": "^4.13.1"
+        "node-sass": "^7.0.0"
     }
 }
